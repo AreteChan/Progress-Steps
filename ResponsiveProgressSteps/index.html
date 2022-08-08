@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./vue.js"></script>
+  <title>Responsive Progress Steps</title>
+</head>
+<body>
+  <section id="app">
+    <div class="progress-circle-container">
+      <!-- style传入CSS变量 -->
+      <div class="progress" :style="{'--i': preIdx, '--j': count-1 }"></div>
+      <div class="circle-container">
+        <!-- c代表一个circle -->
+        <div class="circle" :class="{fill: c.fill}" v-for="(c,idx) in arr" :key="idx" @click="updateProgress(idx)">{{c.title}}</div>
+      </div>
+    </div>
+    <input type="number" v-model.number="count" @input="limitSize">
+  </section>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          count: 5,
+          arr: [{ title: 1, fill: true }],
+          preIdx: 0, // updateProgress调用的外部变量
+        }
+      },
+      beforeMount() {
+        for(let i = 2; i <= this.count; i++) {
+          this.arr.push({ title: i, fill: false })
+        }
+      },
+      watch: {
+        // 比较count的新值与旧值，调用push或pop
+        count(val, old) {
+          if (val > old) {
+            for (let i = old; i < val; i++) {
+              this.arr.push({ title: i+1 , fill: false })
+            }
+          } else {
+            for (let i = old; i > val; i--) {
+              this.arr.pop()
+            }
+          }
+        }
+      },
+      methods: {
+        // 限制input框输入的数字大小
+        limitSize() {
+          if (this.count > 10) {
+            this.count = 10
+          } else if (this.count < 2) {
+            this.count = 2
+          }
+        },
+        // 比较idx和preIdx，更新进度条
+        updateProgress(idx) {
+          let preIdx = this.preIdx
+          if (idx > preIdx) {
+            for (let i = preIdx+1 ; i <= idx; i++) {
+              this.arr[i].fill = true
+            } 
+          } else {
+            for (let i = preIdx; i > idx; i--) {
+              this.arr[i].fill = false
+            }
+          }
+          this.preIdx = idx
+        },
+      },
+      // 处理进度条溢出的情形
+      beforeUpdate() {
+        if (this.count <= this.preIdx) {
+          this.preIdx = this.count - 1
+        }
+      },
+    })
+  </script>
+</body>
+</html>

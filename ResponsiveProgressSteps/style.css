@@ -1,0 +1,86 @@
+:root {
+  --fill: #3498db;
+  --empty: gainsboro;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f6f7fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* progress-circle-container居中 */
+.progress-circle-container {
+  width: fit-content;
+  margin: auto;
+}
+
+/* 灰色进度条，width默认为容器宽度 */
+.progress{
+  height: 4px;
+  background-color: var(--empty);
+  position: relative;
+  top: 22px;
+  z-index: -1;
+  margin: 0 30px;
+}
+
+/* 蓝色进度条 */
+.progress::before {
+  content: '';
+  width: calc(100% / var(--j) * var(--i)); /* 动态宽度 */
+  height: 5px;
+  background-color: var(--fill);
+  position: absolute; /* BFC */
+  transition: all 0.8s ease
+}
+
+/* flex布局防止换行 */
+.circle-container{
+  display: flex;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 3.5px solid var(--empty);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 33px; /* height - border*2 */
+  display: inline-block;
+  margin: 0 20px;
+  cursor: pointer;
+  transition: all 0.8s ease, transform 0s ease;
+}
+
+.circle:active {
+  transform: scale(0.95);
+}
+
+.circle.fill {
+  border-color: var(--fill);
+}
+
+input {
+  width: 50px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  background-color: skyblue;
+  border: 0;
+  border-radius: 10px;
+  /* 居中定位 */
+  position: relative;
+  top: 30px;
+  left: 50%;
+  margin-left: -25px; /* 减去自身宽度的一半 */
+}
