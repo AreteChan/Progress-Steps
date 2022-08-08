@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Progress Steps</title>
+</head>
+<body>
+    <section>
+        <div class="progress"></div>
+        <div class="circle-container">
+            <button class="circle fill">1</button> <!-- idx = 0 -->
+            <button class="circle">2</button>
+            <button class="circle">3</button>
+            <button class="circle">4</button>
+        </div>
+    </section>
+    <script>
+        const circles = document.querySelectorAll('.circle')
+        const progress = document.querySelector('.progress')
+        let preIdx = 0
+
+        circles.forEach((circle, idx) => {
+            circle.onclick = () => {
+                if (idx > preIdx) {
+                    for (let i = preIdx+1 ; i <= idx; i++) {
+                        circles[i].classList.add('fill')
+                    }
+                } else {
+                    for (let i = preIdx; i > idx; i--) {
+                        circles[i].classList.remove('fill')
+                    }
+                }
+                preIdx = idx
+                progress.style.width = 298/3*idx + 'px'
+            }
+        })
+    </script>
+</body>
+</html>

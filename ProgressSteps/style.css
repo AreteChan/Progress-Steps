@@ -1,0 +1,74 @@
+:root {
+    --fill: #3498db;
+    --empty: gainsboro;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f6f7fb;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+section {
+    width: 300px;
+    position: relative;
+}
+
+section::before {
+    content: '';
+    width: 298px;
+    height: 5px;
+    background-color: var(--empty);
+    position: absolute;
+    top: 17.5px;
+    left: 1px;
+    z-index: -1;
+}
+
+.progress {
+    height: 5px;
+    background-color: var(--fill);
+    position: absolute;
+    top: 17.5px;
+    left: 1px;
+    z-index: -1;
+    transition: all 0.5s ease;
+}
+
+.circle-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #999;
+    font-size: 16px;
+    border: 3.5px solid var(--empty);
+    cursor: pointer;
+    transition: all 0.8s ease, transform 0s ease;
+}
+
+.circle:active {
+    transform: scale(0.95);
+    transition: 0s;
+}
+
+.circle.fill {
+    border-color: var(--fill);
+}
+
+
