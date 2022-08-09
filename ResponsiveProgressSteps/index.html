@@ -47,6 +47,10 @@
               this.arr.pop()
             }
           }
+          // 处理progress进度条溢出
+          if (this.count <= this.preIdx) {
+            this.preIdx = this.count - 1
+          }
         }
       },
       methods: {
@@ -72,12 +76,6 @@
           }
           this.preIdx = idx
         },
-      },
-      // 处理进度条溢出的情形
-      beforeUpdate() {
-        if (this.count <= this.preIdx) {
-          this.preIdx = this.count - 1
-        }
       },
     })
   </script>
