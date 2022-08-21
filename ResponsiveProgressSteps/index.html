@@ -54,8 +54,9 @@
         }
       },
       methods: {
-        // 限制input框输入的数字大小
+        // 限制count必须为整数并设置取值范围
         limitSize() {
+          this.count = Math.trunc(this.count)
           if (this.count > 10) {
             this.count = 10
           } else if (this.count < 2) {
